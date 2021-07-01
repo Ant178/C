@@ -1,61 +1,72 @@
-//Numero de ventas N
-//Archivos de cabecera 
+//Problema 2
+//Archivos de cabecera
 #include<stdio.h>
 
 //Prototipo de funciones
-void datosEntrada(int *);
-void ventas(int *, int *, int *, int *, int *, float *);
-void mostrarVe(float *);
-void mostrarResul(int, int, int);
+void num(int* );
+void vec(int* , int );
+void eli(int* , int , int* , int* ,int* );
+void show(int* , int* ,int , int);
 
-//Funcion principal 
+//Declaracion de constantes
+#define MAX 30
+
+//Funcion principal
 void main(){
-	int v,contv,contvMe,contvMi,contvMa;
-	float vo;	
-	contv = 1;
-	contvMe = 0;
-	contvMi = 0;
-	contvMa = 0;
-	
-	datosEntrada(&v);
-	ventas(&v, &contv, &contvMe, &contvMi, &contvMa, &vo);
+	int n,nume[MAX],aux[MAX],b[MAX],contad=0;
+	num(&n);
+	vec(nume,n);
+	eli(nume,n,aux,b,&contad);
+	show(nume,b,n,contad);
 	
 }
 //Cuerpo de las funciones
-void datosEntrada(int *v){
-	printf("Introduzca el numero de ventas que desea evaluar: ");
-	scanf("%d",*&v);
-	
+void num(int* n){
+	printf("Introduzca el numero de elementos del vector: ");
+	scanf("%d",n);
 }
 
-void ventas(int *v, int *contv, int *contvMe, int *contvMi, int *contvMa, float *vo){
-	while(*contv <= *v){
-	 mostrarVe(vo);
-		if(*vo<=200){
-			*contvMe+= 1;
-			 *contv+= 1;	
-		}
-		else if(*vo>200 && *vo<600){
-			*contvMi+= 1;
-			*contv += 1;
-		}
-		else{
-			*contvMa += 1;
-			*contv += 1;
+void vec(int* nume, int n){
+	int i;
+	printf("\nIngrese los elementos del vector");
+	printf("\n");
+	for(i=0;i<n;i++){
+		printf("\nElemento[%d]: ",i+1);
+		scanf("%d",&nume[i]);
+	}
+}
+
+void eli(int* nume, int n, int* aux, int* b,int* contad){
+	int i,l=0,k,num,j=0,cont=0;
+	for(i=0;i<n;i++){
+	cont=0;
+	num= nume[i];
+	aux[i]= num;
+	j++;
+	for(k=0;k<n;k++){
+		if(aux[k]==num){
+			cont+=1;
 		}
 	}
-	mostrarResul(*contvMe, *contvMi, * contvMa);
+	if(cont==1){
+		b[l]=num;
+		l+=1;
+		*contad+=1;
+	}		
+  }
 }
 
-void mostrarVe(float *vo){
-	printf("\nIntroduzca las ventas que obtuvo: ");
-	scanf("%f",*&vo);
-
+void show(int* nume,int* b, int n, int contad){
+	int i,j;
+	printf("\nEl vector original es");
+	for(i=0;i<n;i++){
+		printf("\nElemento[%d]: %d",i+1,nume[i]);
+	}
+	printf("\n");
+	printf("\nEl nuevo vector es");
+	for(j=0;j<contad;j++){
+		printf("\nElemento[%d]: %d",j+1,b[j]);
+	}
 }
 
-void mostrarResul(int contvMe, int contvMi, int contvMa){
-	printf("\na) Numero de ventas menores o iguales a $200: %d",contvMe);
-	printf("\nb) Numero de ventas mayores a $200 pero menores que $600: %d",contvMi);
-	printf("\nc) Numero de ventas mayores a $600: %d",contvMa);
-	
-}
+
